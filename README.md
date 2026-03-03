@@ -60,7 +60,7 @@ bash scripts/health-check.sh
 2. **快照**（每小时）- 可恢复到任意时刻
 3. **智能总结**（每日）- AI 提取关键对话、决策、成果
 4. **健康检查**（每6小时）- 自动清理、修复配置、恢复任务
-5. **项目管理**（v2.0 新增）- 计划文件 + Session 隔离 + GatewayRestart 恢复
+5. **项目管理** - 计划文件 + Session 隔离 + GatewayRestart 恢复
 
 ### 核心优势
 
@@ -120,7 +120,7 @@ cat Assets/SessionBackups/health-report-*.txt
 
 - [完整文档](SKILL.md) - 详细功能说明和配置
 - [使用示例](EXAMPLES.md) - 实战案例和常见问题
-- [发布说明](RELEASE-v2.0.md) - v2.0 新增功能详解
+- [发布说明](RELEASE-v1.0.md) - 完整功能详解
 
 ---
 
@@ -148,7 +148,7 @@ cat Assets/SessionBackups/health-report-*.txt
 完全向后兼容，无需修改配置。
 
 ```bash
-# 更新到 v2.0
+# 更新到最新版本
 cd ~/.openclaw/workspace/skills/session-guardian
 git pull origin main
 
@@ -195,4 +195,4 @@ MIT License - 详见 [LICENSE](LICENSE) 文件
 
 ---
 
-**Session Guardian v2.0** - 让你的 AI 对话永不丢失，任务状态永不混淆 🛡️
+**Session Guardian v1.0** - 让你的 AI 对话永不丢失，任务状态永不混淆 🛡️

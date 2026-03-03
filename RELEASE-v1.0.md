@@ -231,7 +231,7 @@ Session Guardian v1.0 是首次发布，无需升级。
 
 感谢 OpenClaw 团队提供强大的 Gateway 和 Cron 机制，感谢社区贡献者的建议和反馈。
 
-v2.0 的设计理念来自 Lobster Studio 的实战经验：
+v1.0 的设计理念来自 Lobster Studio 的实战经验：
 - 在建设多智能体军团时发现任务状态难以追踪
 - 在多渠道运营时发现容易跨 session 混淆
 - 在 Gateway 重启时发现任务容易丢失
@@ -269,4 +269,4 @@ MIT License - 详见 [LICENSE](LICENSE) 文件
 
 ---
 
-**Session Guardian v2.0** - 让你的 AI 对话永不丢失，任务状态永不混淆 🛡️
+**Session Guardian v1.0** - 让你的 AI 对话永不丢失，任务状态永不混淆 🛡️

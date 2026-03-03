@@ -485,9 +485,9 @@ bash scripts/restore.sh --source incremental --agent track-lead
 ## 下一步
 
 - 阅读完整文档：`SKILL.md`
-- 查看发布说明：`RELEASE-v2.0.md`
+- 查看发布说明：`RELEASE-v1.0.md`
 - 加入社区讨论：https://discord.com/invite/clawd
 
 ---
 
-**Session Guardian v2.0** - 让你的 AI 对话永不丢失，任务状态永不混淆 🛡️
+**Session Guardian v1.0** - 让你的 AI 对话永不丢失，任务状态永不混淆 🛡️
