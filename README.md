@@ -1,6 +1,6 @@
 # Session Guardian 🛡️
 
-**对话守护者** - 为 OpenClaw 提供企业级对话备份、恢复与项目管理能力
+**对话永不丢失，任务永不混淆** - 企业级对话备份 + 项目管理解决方案
 
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/cyber-axin/session-guardian)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
@@ -8,74 +8,57 @@
 
 ---
 
-## 🚀 核心特性
+## 使用场景
 
-基于 Lobster Studio 多智能体军团协作的实战经验，提供五大核心能力：
+遇到这些问题？Session Guardian 帮你解决：
 
-1. **计划文件机制** 📋 - 复杂任务状态管理
-2. **Session 隔离规则** 🔒 - 防止跨 session/跨渠道混淆
-3. **GatewayRestart 强制恢复** 🔄 - 自动恢复未完成任务
+- 🔴 **模型频繁掉线**，对话内容丢失，工作白做
+- 🔴 **Gateway 重启**，不知道之前在做什么，任务状态全忘
+- 🔴 **跨渠道混淆**，把私人信息发到群聊，或把群聊内容发到 DM
+- 🔴 **复杂任务难追踪**，任务跨越多个 session，状态记不住
+- 🔴 **多智能体协作混乱**，多个 agent 同时工作，不知道谁在做什么
+- 🔴 **Session 文件过大**，导致超时、响应慢、Token 消耗大
 
 ---
 
-## 🚀 快速开始
-
-### 安装
+## 快速开始
 
 ```bash
-# 从 ClawHub 安装（推荐）
+# 1. 安装
 clawhub install session-guardian
 
-# 或从 GitHub 安装
-git clone https://github.com/cyber-axin/session-guardian.git ~/.openclaw/workspace/skills/session-guardian
-```
-
-### 一键部署
-
-```bash
+# 2. 一键部署（自动配置所有定时任务）
 cd ~/.openclaw/workspace/skills/session-guardian
 bash scripts/install.sh
+
+# 3. 验证安装
+crontab -l | grep session-guardian
+openclaw cron list
 ```
 
-### 验证安装
+**就这么简单！** 现在你的对话和任务状态都受到保护了。
+
+---
+
+## 核心功能
+
+### 1. 对话永不丢失 📦
 
 ```bash
-# 查看系统 crontab
-crontab -l | grep session-guardian
+# 增量备份（每5分钟）- 最多丢失5分钟数据
+# 快照（每小时）- 可恢复到任意时刻
+# 智能总结（每日）- AI 提取关键内容
 
-# 查看 OpenClaw cron
-openclaw cron list
-
-# 运行健康检查
-bash scripts/health-check.sh
+# 恢复数据
+bash scripts/restore.sh --source incremental
+bash scripts/restore.sh --source hourly --timestamp 2026-03-03-14
 ```
 
----
-
-## 📦 功能特性
-
-### 五层防护体系
-
-1. **增量备份**（每5分钟）- 最多丢失5分钟数据
-2. **快照**（每小时）- 可恢复到任意时刻
-3. **智能总结**（每日）- AI 提取关键对话、决策、成果
-4. **健康检查**（每6小时）- 自动清理、修复配置、恢复任务
-5. **项目管理** - 计划文件 + Session 隔离 + GatewayRestart 恢复
-
-### 核心优势
-
-- ✅ **零 Token 成本** - 备份和快照是纯脚本，不调用 LLM
-- ✅ **不影响主对话** - 使用系统 crontab，完全独立运行
-- ✅ **自动清理** - 智能管理磁盘空间，不会无限增长
-- ✅ **一键恢复** - 提供恢复脚本，快速回滚到任意时刻
-- ✅ **Session 隔离** - 防止跨 session/跨渠道混淆
-- ✅ **任务管理** - 计划文件机制，复杂任务状态可追踪
+**零 Token 成本，完全独立运行，不影响主对话**
 
 ---
 
-## 📖 使用示例
-
-### 计划文件管理
+### 2. 任务状态持久化 📋
 
 ```bash
 # 创建任务计划
@@ -91,32 +74,101 @@ bash scripts/plan-manager.sh list
 bash scripts/plan-manager.sh archive "开发新功能"
 ```
 
-### Session 隔离检查
+**自动创建计划文件，实时更新进度，跨 session 可追踪**
+
+---
+
+### 3. 防止跨渠道泄露 🔒
 
 ```bash
-# 检查所有 agent
+# 检查 Session 隔离状态
 bash scripts/session-isolation-check.sh check
-
-# 验证单个 agent
-bash scripts/session-isolation-check.sh validate main
 
 # 生成详细报告
 bash scripts/session-isolation-check.sh report
 ```
 
-### 健康检查
+**强制检查渠道和用户，防止私人信息泄露到群聊**
+
+---
+
+### 4. Gateway 重启自动恢复 🔄
 
 ```bash
-# 运行健康检查
+# 健康检查（每6小时自动运行）
 bash scripts/health-check.sh
+```
 
-# 查看报告
-cat Assets/SessionBackups/health-report-*.txt
+**自动检测重启，恢复所有未完成任务，主动汇报**
+
+---
+
+### 5. 自动维护健康 🏥
+
+**自动清理 >1MB 的 session 文件，修复缺失配置，监控磁盘空间**
+
+---
+
+## 五层防护体系
+
+| 层级 | 频率 | 功能 | Token 成本 |
+|------|------|------|-----------|
+| 增量备份 | 每5分钟 | 最多丢失5分钟数据 | 0 |
+| 快照 | 每小时 | 可恢复到任意时刻 | 0 |
+| 智能总结 | 每日 | AI 提取关键内容 | 少量 |
+| 健康检查 | 每6小时 | 清理、修复、监控 | 0 |
+| 项目管理 | 实时 | 任务追踪、Session 隔离 | 0 |
+
+---
+
+## 实战案例
+
+### 多智能体协作项目
+
+```bash
+# 1. 创建项目计划
+bash scripts/plan-manager.sh create "智能巡检产品v1.0"
+
+# 2. 分配任务给不同 agent
+# - 安防AI产品军团：流程设计
+# - 开发军团UI设计师：界面设计
+# - 开发军团全栈开发：代码实现
+
+# 3. 每个 agent 完成任务后更新进度
+bash scripts/plan-manager.sh update "智能巡检产品v1.0" "1.1"
+
+# 4. 定期检查 Session 隔离
+bash scripts/session-isolation-check.sh check
+
+# 5. 项目完成后归档
+bash scripts/plan-manager.sh archive "智能巡检产品v1.0"
 ```
 
 ---
 
-## 📚 文档
+## 核心优势
+
+- ✅ **零 Token 成本** - 备份和快照不调用 LLM
+- ✅ **不影响主对话** - 使用系统 crontab，完全独立运行
+- ✅ **自动清理** - 智能管理磁盘空间
+- ✅ **一键恢复** - 快速回滚到任意时刻
+- ✅ **完整文档** - 使用示例、实战案例、故障排除
+
+---
+
+## 适用场景
+
+| 场景 | 痛点 | 解决方案 |
+|------|------|----------|
+| 多智能体协作 | 任务状态难追踪 | 计划文件机制 |
+| 多渠道运营 | 跨渠道混淆 | Session 隔离检查 |
+| 长期项目 | 数据丢失风险 | 五层防护体系 |
+| 模型不稳定 | 频繁掉线 | 增量备份 + 快照 |
+| Gateway 重启 | 任务状态丢失 | 自动恢复机制 |
+
+---
+
+## 文档
 
 - [完整文档](SKILL.md) - 详细功能说明和配置
 - [使用示例](EXAMPLES.md) - 实战案例和常见问题
@@ -124,47 +176,7 @@ cat Assets/SessionBackups/health-report-*.txt
 
 ---
 
-## 🎯 适用场景
-
-### 1. 多智能体协作项目
-- 建设多个 agent 军团
-- 任务跨越多个 session
-- 需要持续追踪进度
-
-### 2. 多渠道运营
-- 同时使用 Web、钉钉、Telegram 等
-- 防止跨渠道泄露
-- 保护用户隐私
-
-### 3. 长期项目管理
-- 项目周期长（数周/数月）
-- 需要持久化任务状态
-- 防止数据丢失
-
----
-
-## 🔄 从 v1.x 升级
-
-完全向后兼容，无需修改配置。
-
-```bash
-# 更新到最新版本
-cd ~/.openclaw/workspace/skills/session-guardian
-git pull origin main
-
-# 验证升级
-bash scripts/health-check.sh
-```
-
----
-
-## 🙏 致谢
-
-感谢 OpenClaw 团队提供强大的 Gateway 和 Cron 机制，感谢社区贡献者的建议和反馈。
-
----
-
-## 📝 更新日志
+## 更新日志
 
 ### v1.0.0 (2026-03-03)
 - ✨ 五层防护体系
@@ -178,18 +190,25 @@ bash scripts/health-check.sh
 
 ---
 
-## 📞 联系方式
+## 作者
 
-- **作者**：赛博阿昕 (Cyber Axin) 🦞
-  - Lobster Studio 创始人
-  - King（龙虾之王）- 主控 AI Agent，统筹五大智能体军团
-- **GitHub**：https://github.com/cyber-axin/session-guardian
-- **Email**：cyber.axin@outlook.com
-- **Discord**：https://discord.com/invite/clawd
+**赛博阿昕 (Cyber Axin)** 🦞
+- Lobster Studio 创始人
+- King（龙虾之王）- 主控 AI Agent，统筹五大智能体军团
+
+基于 Lobster Studio 多智能体军团协作的实战经验打造。
 
 ---
 
-## 📄 许可证
+## 📞 联系方式
+
+- **Email**：zhuangxin@szbit.cn
+- **WeChat**：sixsixsix_666-
+- **GitHub**：https://github.com/cyber-axin/session-guardian
+
+---
+
+## 许可证
 
 MIT License - 详见 [LICENSE](LICENSE) 文件
 

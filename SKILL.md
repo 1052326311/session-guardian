@@ -1,18 +1,16 @@
 ---
 name: session-guardian
-description: 实时监控并备份所有 agent 对话记录，防止因模型掉线、Gateway 重启导致的数据丢失。五层防护：增量备份（每5分钟）+ 快照（每小时）+ 智能总结（每日）+ 健康检查（每6小时）+ 项目管理（计划文件+Session隔离）
+description: 对话永不丢失，任务永不混淆。解决模型掉线、Gateway重启、跨渠道混淆、任务难追踪等痛点。五层防护：增量备份（5分钟）+ 快照（1小时）+ 智能总结（每日）+ 健康检查（6小时）+ 项目管理。零Token成本，一键安装。
 version: 1.0.0
 author: 赛博阿昕 (Cyber Axin)
 license: MIT
 tags:
   - backup
   - session
-  - cron
-  - automation
-  - data-protection
-  - health-check
   - project-management
-  - session-isolation
+  - multi-agent
+  - data-protection
+  - automation
 metadata:
   openclaw:
     emoji: "🛡️"
@@ -21,11 +19,271 @@ metadata:
 
 # Session Guardian 🛡️
 
-**对话守护者** - 为 OpenClaw 提供企业级对话备份、恢复与项目管理能力
+**对话守护者** - 企业级对话备份 + 项目管理解决方案
 
-## 🚀 核心特性
+## 使用场景
 
-基于 Lobster Studio 多智能体军团协作的实战经验，提供五大核心能力：
+- 🔴 **模型频繁掉线**，对话内容丢失，工作白做
+- 🔴 **Gateway 重启**，不知道之前在做什么，任务状态全忘
+- 🔴 **跨渠道混淆**，把私人信息发到群聊，或把群聊内容发到 DM
+- 🔴 **复杂任务难追踪**，任务跨越多个 session，状态记不住
+- 🔴 **多智能体协作混乱**，多个 agent 同时工作，不知道谁在做什么
+- 🔴 **Session 文件过大**，导致超时、响应慢、Token 消耗大
+
+## 快速开始
+
+```bash
+# 安装
+clawhub install session-guardian
+
+# 一键部署（自动配置所有定时任务）
+cd ~/.openclaw/workspace/skills/session-guardian
+bash scripts/install.sh
+
+# 验证
+crontab -l | grep session-guardian
+openclaw cron list
+```
+
+## 核心功能
+
+### 1. 对话永不丢失 📦
+
+**问题**：模型掉线、Gateway 重启、连接器崩溃，对话丢失
+
+**解决**：
+```bash
+# 增量备份（每5分钟）- 最多丢失5分钟数据
+bash scripts/incremental-backup.sh
+
+# 快照（每小时）- 可恢复到任意时刻
+bash scripts/hourly-snapshot.sh
+
+# 智能总结（每日）- AI 提取关键内容
+# 自动通过 OpenClaw cron 运行
+```
+
+**效果**：零 Token 成本，完全独立运行，不影响主对话
+
+---
+
+### 2. 任务状态持久化 📋
+
+**问题**：复杂任务跨越多个 session，状态记不住，进度乱套
+
+**解决**：
+```bash
+# 创建任务计划
+bash scripts/plan-manager.sh create "开发新功能"
+
+# 更新进度
+bash scripts/plan-manager.sh update "开发新功能" "1.1"
+
+# 查看所有任务
+bash scripts/plan-manager.sh list
+
+# 归档已完成任务
+bash scripts/plan-manager.sh archive "开发新功能"
+```
+
+**效果**：
+- 自动创建 `temp/任务名-plan.md`
+- 实时更新进度，不依赖 LLM 记忆
+- 跨 session 可追踪，完成后自动归档
+
+---
+
+### 3. 防止跨渠道泄露 🔒
+
+**问题**：把私人信息发到群聊，或把群聊内容发到 DM
+
+**解决**：
+```bash
+# 检查所有 agent 的 Session 隔离状态
+bash scripts/session-isolation-check.sh check
+
+# 验证单个 agent
+bash scripts/session-isolation-check.sh validate main
+
+# 生成详细报告
+bash scripts/session-isolation-check.sh report
+```
+
+**效果**：
+- 强制检查 `inbound_meta`（渠道、用户、session）
+- 自动检测跨 session 引用，立即告警
+- 保护隐私安全，防止信息泄露
+
+---
+
+### 4. Gateway 重启自动恢复 🔄
+
+**问题**：Gateway 重启后不知道之前在做什么，任务状态全忘
+
+**解决**：
+```bash
+# 健康检查（包含 GatewayRestart 检查）
+bash scripts/health-check.sh
+```
+
+**效果**：
+- 自动检测 Gateway 重启
+- 检查恢复文件（`temp/recovery-*.json`）
+- 检查所有未完成任务
+- 主动汇报，不静默
+
+---
+
+### 5. 自动维护健康 🏥
+
+**问题**：session 文件过大（几 MB），导致超时、响应慢
+
+**解决**：
+```bash
+# 自动运行（每6小时）
+# 或手动运行
+bash scripts/health-check.sh
+```
+
+**效果**：
+- 自动清理 >1MB 的 session 文件
+- 自动修复缺失的 defaultModel 配置
+- 磁盘空间监控，提前预警
+- 自动推送告警
+
+---
+
+## 五层防护体系
+
+| 层级 | 频率 | 功能 | Token 成本 |
+|------|------|------|-----------|
+| 增量备份 | 每5分钟 | 最多丢失5分钟数据 | 0 |
+| 快照 | 每小时 | 可恢复到任意时刻 | 0 |
+| 智能总结 | 每日 | AI 提取关键内容 | 少量 |
+| 健康检查 | 每6小时 | 清理、修复、监控 | 0 |
+| 项目管理 | 实时 | 任务追踪、Session 隔离 | 0 |
+
+---
+
+## 实战案例
+
+### 案例1：多智能体协作项目
+
+**场景**：建设智能巡检产品，涉及多个 agent 协作
+
+```bash
+# 1. 创建项目计划
+bash scripts/plan-manager.sh create "智能巡检产品v1.0"
+
+# 2. 分配任务给不同 agent
+# - 安防AI产品军团：流程设计
+# - 开发军团UI设计师：界面设计
+# - 开发军团全栈开发：代码实现
+
+# 3. 每个 agent 完成任务后更新进度
+bash scripts/plan-manager.sh update "智能巡检产品v1.0" "1.1"
+
+# 4. 定期检查 Session 隔离
+bash scripts/session-isolation-check.sh check
+
+# 5. 项目完成后归档
+bash scripts/plan-manager.sh archive "智能巡检产品v1.0"
+```
+
+---
+
+### 案例2：多渠道运营
+
+**场景**：同时使用 Web 和钉钉，需要防止跨渠道泄露
+
+```bash
+# 1. 定期检查 Session 隔离
+bash scripts/session-isolation-check.sh check
+
+# 2. 生成报告（每周一次）
+bash scripts/session-isolation-check.sh report
+
+# 3. 健康检查会自动清理过大的 session 文件
+bash scripts/health-check.sh
+```
+
+---
+
+## 恢复数据
+
+### 从增量备份恢复（最新数据）
+
+```bash
+bash scripts/restore.sh --source incremental
+```
+
+### 从快照恢复（1小时前）
+
+```bash
+bash scripts/restore.sh --source hourly --timestamp 2026-03-03-14
+```
+
+### 恢复特定 agent
+
+```bash
+bash scripts/restore.sh --source incremental --agent track-lead
+```
+
+---
+
+## 配置选项
+
+### 备份频率
+
+编辑 `scripts/config.sh`：
+
+```bash
+# 增量备份间隔（分钟）
+INCREMENTAL_INTERVAL=5
+
+# 快照间隔（小时）
+HOURLY_INTERVAL=1
+
+# 健康检查间隔（小时）
+HEALTH_CHECK_INTERVAL=6
+```
+
+### 保留策略
+
+```bash
+# 增量备份保留时间（天）
+INCREMENTAL_KEEP_DAYS=7
+
+# 快照保留时间（小时）
+HOURLY_KEEP_HOURS=24
+
+# 每日总结保留时间（天，0=永久）
+DAILY_KEEP_DAYS=0
+```
+
+---
+
+## 核心优势
+
+- ✅ **零 Token 成本** - 备份和快照不调用 LLM
+- ✅ **不影响主对话** - 使用系统 crontab，完全独立运行
+- ✅ **自动清理** - 智能管理磁盘空间
+- ✅ **一键恢复** - 快速回滚到任意时刻
+- ✅ **完整文档** - 使用示例、实战案例、故障排除
+
+---
+
+## 适用场景
+
+| 场景 | 痛点 | 解决方案 |
+|------|------|----------|
+| 多智能体协作 | 任务状态难追踪 | 计划文件机制 |
+| 多渠道运营 | 跨渠道混淆 | Session 隔离检查 |
+| 长期项目 | 数据丢失风险 | 五层防护体系 |
+| 模型不稳定 | 频繁掉线 | 增量备份 + 快照 |
+| Gateway 重启 | 任务状态丢失 | 自动恢复机制 |
+
+---
 
 ### 1. 计划文件机制 📋
 - 复杂任务自动创建计划文件（`temp/任务名-plan.md`）

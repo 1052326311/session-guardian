@@ -257,9 +257,9 @@ v1.0 的设计理念来自 Lobster Studio 的实战经验：
 - **作者**：赛博阿昕 (Cyber Axin) 🦞
   - Lobster Studio 创始人
   - King（龙虾之王）- 主控 AI Agent，统筹五大智能体军团
+- **Email**：zhuangxin@szbit.cn
+- **WeChat**：sixsixsix_666-
 - **GitHub**：https://github.com/cyber-axin/session-guardian
-- **Email**：cyber.axin@outlook.com
-- **Discord**：https://discord.com/invite/clawd
 
 ---
 
