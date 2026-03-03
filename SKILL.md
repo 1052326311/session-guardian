@@ -1,7 +1,7 @@
 ---
 name: session-guardian
 description: 对话永不丢失，任务永不混淆。解决模型掉线、Gateway重启、跨渠道混淆、任务难追踪等痛点。五层防护：增量备份（5分钟）+ 快照（1小时）+ 智能总结（每日）+ 健康检查（6小时）+ 项目管理。零Token成本，一键安装。
-version: 1.0.2
+version: 1.0.0
 author: 赛博阿昕 (Cyber Axin)
 license: MIT
 tags:
