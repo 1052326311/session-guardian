@@ -1,6 +1,6 @@
-# Session Guardian v2.0 - 使用示例
+# Session Guardian v1.0 - 使用示例
 
-本文档提供 Session Guardian v2.0 的完整使用示例，帮助你快速上手。
+本文档提供 Session Guardian v1.0 的完整使用示例，帮助你快速上手。
 
 ---
 
