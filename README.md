@@ -1,44 +1,60 @@
 # Session Guardian 🛡️
 
-**Never Lose Your Conversations, Never Mix Up Your Tasks** - Enterprise-grade Session Backup + Project Management
+**Enterprise Session Backup & Project Management for [OpenClaw](https://openclaw.ai)**
 
-[![Version](https://img.shields.io/badge/version-1.0.1-blue.svg)](https://github.com/cyber-axin/session-guardian)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/1052326311/session-guardian)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![OpenClaw](https://img.shields.io/badge/OpenClaw-0.9.0+-orange.svg)](https://openclaw.ai)
+[![ClawHub](https://img.shields.io/badge/ClawHub-Install-brightgreen.svg)](https://clawhub.com)
+
+> An OpenClaw skill that provides enterprise-grade session backup, recovery, and project management capabilities. Never lose your AI conversations or task states again.
 
 [中文文档](README_CN.md) | English
 
 ---
 
-## Use Cases
+## What is OpenClaw?
 
-Are you facing these problems? Session Guardian solves them:
+[OpenClaw](https://openclaw.ai) is an AI agent framework that enables multi-agent collaboration and automation. Session Guardian is a skill/plugin for OpenClaw that protects your conversations and manages complex tasks.
 
-- 🔴 **Model crashes frequently**, conversations lost, work wasted
-- 🔴 **Gateway restarts**, forgot what you were doing, task state lost
-- 🔴 **Cross-channel confusion**, sent private info to group chat or vice versa
-- 🔴 **Complex tasks hard to track**, tasks span multiple sessions, state forgotten
-- 🔴 **Multi-agent chaos**, multiple agents working, don't know who's doing what
-- 🔴 **Session files too large**, causing timeouts, slow responses, high token costs
+---
+
+## Why Session Guardian?
+
+Are you facing these problems with OpenClaw? Session Guardian solves them:
+
+- 🔴 **Model crashes frequently** → Conversations lost, work wasted
+- 🔴 **Gateway restarts** → Forgot what you were doing, task state lost
+- 🔴 **Cross-channel confusion** → Sent private info to group chat or vice versa
+- 🔴 **Complex tasks hard to track** → Tasks span multiple sessions, state forgotten
+- 🔴 **Multi-agent chaos** → Multiple agents working, don't know who's doing what
+- 🔴 **Session files too large** → Causing timeouts, slow responses, high token costs
 
 ---
 
 ## Quick Start
 
+### Prerequisites
+
+- [OpenClaw](https://openclaw.ai) installed and running
+- [ClawHub CLI](https://clawhub.com) (for installation)
+
+### Installation
+
 ```bash
-# 1. Install
+# Install from ClawHub
 clawhub install session-guardian
 
-# 2. One-click deployment (auto-configure all cron jobs)
+# One-click deployment (auto-configure all cron jobs)
 cd ~/.openclaw/workspace/skills/session-guardian
 bash scripts/install.sh
 
-# 3. Verify installation
+# Verify installation
 crontab -l | grep session-guardian
 openclaw cron list
 ```
 
-**That's it!** Your conversations and task states are now protected.
+**That's it!** Your OpenClaw conversations and task states are now protected.
 
 ---
 
@@ -175,15 +191,20 @@ bash scripts/plan-manager.sh archive "Smart Inspection Product v1.0"
 - [Complete Documentation](SKILL.md) - Detailed features and configuration
 - [Usage Examples](EXAMPLES.md) - Real cases and FAQs
 - [Release Notes](RELEASE-v1.0.md) - Complete feature details
+- [中文文档](README_CN.md) - Chinese documentation
+
+---
+
+## Requirements
+
+- OpenClaw >= 0.9.0
+- macOS, Linux, or Windows (WSL)
+- Bash shell
+- Cron (for scheduled tasks)
 
 ---
 
 ## Changelog
-
-### v1.0.1 (2026-03-03)
-- 📝 Optimized documentation structure
-- 📝 Highlighted use cases and pain points
-- 📝 Updated contact information
 
 ### v1.0.0 (2026-03-03)
 - ✨ Five-layer protection system
@@ -192,8 +213,15 @@ bash scripts/plan-manager.sh archive "Smart Inspection Product v1.0"
 - ✨ GatewayRestart forced recovery
 - 🔧 Health check and auto-repair
 - 📝 Complete documentation
+- 🌍 Bilingual support (EN/CN)
 
 [View Complete Changelog](RELEASE-v1.0.md)
+
+---
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ---
 
@@ -203,7 +231,7 @@ bash scripts/plan-manager.sh archive "Smart Inspection Product v1.0"
 - Founder of Lobster Studio
 - King (Lobster King) - Master AI Agent, orchestrating five intelligent agent corps
 
-Built from real-world experience with Lobster Studio's multi-agent collaboration.
+Built from real-world experience with Lobster Studio's multi-agent collaboration on OpenClaw.
 
 ---
 
@@ -211,7 +239,16 @@ Built from real-world experience with Lobster Studio's multi-agent collaboration
 
 - **Email**: zhuangxin@szbit.cn
 - **WeChat**: sixsixsix_666-
-- **GitHub**: https://github.com/cyber-axin/session-guardian
+- **GitHub**: https://github.com/1052326311/session-guardian
+
+---
+
+## Related Links
+
+- [OpenClaw Official Site](https://openclaw.ai)
+- [OpenClaw Documentation](https://docs.openclaw.ai)
+- [ClawHub - Skill Marketplace](https://clawhub.com)
+- [OpenClaw GitHub](https://github.com/openclaw/openclaw)
 
 ---
 
@@ -221,4 +258,10 @@ MIT License - See [LICENSE](LICENSE) file for details
 
 ---
 
-**Session Guardian v1.0** - Never lose your AI conversations, never mix up task states 🛡️
+## Keywords
+
+`openclaw` `openclaw-skill` `session-backup` `project-management` `multi-agent` `ai-agent` `conversation-backup` `task-management` `data-protection` `automation`
+
+---
+
+**Session Guardian v1.0** - Never lose your OpenClaw conversations, never mix up task states 🛡️
