@@ -1433,9 +1433,9 @@ v1.0 是在实际使用中发现的需求：复杂任务跨越多个 session 时
 
 ## 联系方式
 
-- GitHub: https://github.com/cyber-axin/session-guardian
-- Email: cyber.axin@outlook.com
-- Discord: https://discord.com/invite/clawd
+- **Email**：zhuangxin@szbit.cn
+- **WeChat**：sixsixsix_666-
+- **GitHub**：https://github.com/cyber-axin/session-guardian
 
 ---
 
