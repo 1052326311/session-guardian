@@ -486,7 +486,7 @@ bash scripts/restore.sh --source incremental --agent track-lead
 
 - 阅读完整文档：`SKILL.md`
 - 查看发布说明：`RELEASE-v1.0.md`
-- 加入社区讨论：https://discord.com/invite/clawd
+- 加入社区讨论：https://github.com/cyber-axin/session-guardian
 
 ---
 
