@@ -1,7 +1,7 @@
 ---
 name: session-guardian
-description: 对话永不丢失，任务永不混淆。解决模型掉线、Gateway重启、跨渠道混淆、任务难追踪等痛点。五层防护：增量备份（5分钟）+ 快照（1小时）+ 智能总结（每日）+ 健康检查（6小时）+ 项目管理。零Token成本，一键安装。
-version: 1.0.0
+description: 对话永不丢失，任务永不混淆。解决模型掉线、Gateway重启、跨渠道混淆、任务难追踪等痛点。五层防护：增量备份（5分钟）+ 快照（1小时）+ 智能总结（每日）+ 健康检查（6小时）+ 项目管理。v2.0新增：协作链路追踪、智能备份策略、知识库沉淀、协作健康度评分。适用于单agent、多agent协作、团队协作等所有场景。
+version: 2.0.0
 author: 赛博阿昕 (Cyber Axin)
 license: MIT
 tags:
@@ -44,6 +44,61 @@ bash scripts/install.sh
 crontab -l | grep session-guardian
 openclaw cron list
 ```
+
+## 适用场景
+
+### 场景1：企业多智能体协作
+**典型用户**：企业团队，多个agent分工协作
+
+**示例**：
+- 总控agent → 开发团队leader → UI设计师 + 全栈开发
+- 总控agent → 金融团队leader → 策略研究 + 风控 + 执行
+- 总控agent → 运营团队leader → 内容创作 + 数据分析
+
+**受益功能**：
+- ✅ 协作链路追踪：可视化任务流转过程
+- ✅ 协作健康度：监控团队协作质量
+- ✅ 知识库沉淀：积累团队最佳实践
+
+### 场景2：个人助手团队
+**典型用户**：个人用户，多个专业助手并行工作
+
+**示例**：
+- 研究助手：查资料、整理文献
+- 编程助手：写代码、调试问题
+- 写作助手：写文章、润色文案
+- 翻译助手：多语言翻译
+
+**受益功能**：
+- ✅ 智能备份：保护每个助手的记忆
+- ✅ 知识提取：每个助手积累专业经验
+- ✅ 协作追踪：了解任务在哪个助手手上
+
+### 场景3：单agent深度使用
+**典型用户**：只用一个主agent的用户
+
+**示例**：
+- 个人AI助手：处理日常所有任务
+- 专业顾问：深度对话、长期记忆
+
+**受益功能**：
+- ✅ 智能备份：防止对话丢失
+- ✅ 知识提取：积累个人最佳实践
+- ✅ 任务管理：复杂任务状态追踪
+
+### 场景4：企业多部门协作
+**典型用户**：企业，不同部门各有agent
+
+**示例**：
+- 销售agent：客户管理、商机跟进
+- 客服agent：问题处理、工单管理
+- 技术agent：技术支持、故障排查
+- 财务agent：报表生成、数据分析
+
+**受益功能**：
+- ✅ Session隔离：防止部门间信息泄露
+- ✅ 协作健康度：监控跨部门协作
+- ✅ 知识库：沉淀部门专业知识
 
 ## 核心功能
 
@@ -150,6 +205,85 @@ bash scripts/health-check.sh
 - 自动修复缺失的 defaultModel 配置
 - 磁盘空间监控，提前预警
 - 自动推送告警
+
+---
+
+### 6. 协作链路追踪 🔗 (v2.0)
+
+**问题**：不知道任务经过了哪些agent，协作链路不可见
+
+**解决**：
+```bash
+# 追踪任务链路
+bash scripts/collaboration-tracker.sh trace "任务名"
+
+# 生成协作图
+bash scripts/collaboration-tracker.sh graph "任务名"
+```
+
+**效果**：
+- 追踪 agent间的完整协作链路
+- 可视化协作过程
+- 记录每次 sessions_send 调用
+
+**适用场景**：多agent协作、团队协作
+
+---
+
+### 7. 智能备份策略 📦 (v2.0)
+
+**问题**：固定agent和临时subagent用同样的清理策略，重要记忆被误删
+
+**解决**：
+- 固定Agent：5MB限制，保留90天
+- 临时Subagent：1MB限制，保留7天
+
+**效果**：
+- 保护固定agent的记忆和经验
+- 激进清理临时subagent，节省空间
+
+**适用场景**：所有场景（单agent、多agent、团队协作）
+
+---
+
+### 8. 知识库沉淀 📚 (v2.0)
+
+**问题**：团队经验分散在各agent的session中，难以复用
+
+**解决**：
+```bash
+# 提取单个agent知识
+bash scripts/knowledge-extractor.sh extract agent-name
+
+# 提取所有agent知识
+bash scripts/knowledge-extractor.sh extract-all
+```
+
+**效果**：
+- 自动提取最佳实践（✅标记）
+- 自动提取常见问题（❌标记）
+- 生成结构化知识库
+
+**适用场景**：所有场景（单agent、多agent、团队协作）
+
+---
+
+### 9. 协作健康度评分 📊 (v2.0)
+
+**问题**：不知道多agent协作是否健康
+
+**解决**：
+```bash
+# 生成健康报告
+bash scripts/collaboration-health.sh report
+```
+
+**效果**：
+- 评估通信频率、响应速度
+- 量化协作质量（0-100分）
+- 自动生成优化建议
+
+**适用场景**：多agent协作、团队协作
 
 ---
 
@@ -260,6 +394,37 @@ HOURLY_KEEP_HOURS=24
 # 每日总结保留时间（天，0=永久）
 DAILY_KEEP_DAYS=0
 ```
+
+### v2.0 智能备份策略
+
+**固定Agent vs 临时Subagent**
+
+Session Guardian v2.0 自动区分两种agent类型，采用差异化备份策略：
+
+```bash
+# 固定Agent配置（长期记忆）
+FIXED_AGENT_SESSION_LIMIT_MB=5    # Session大小限制
+FIXED_AGENT_KEEP_DAYS=90           # 保留时间
+
+# 临时Subagent配置（短期任务）
+SUBAGENT_SESSION_LIMIT_MB=1        # Session大小限制
+SUBAGENT_KEEP_DAYS=7               # 保留时间
+```
+
+**什么是固定Agent？**
+- 在 `~/.openclaw/agents/` 下有独立目录的agent
+- 例如：main, dev-lead, finance-lead, research-assistant
+- 这些agent需要长期记忆和经验积累
+
+**什么是临时Subagent？**
+- 通过 `sessions_spawn` 创建的临时agent
+- 用于一次性任务，完成后不需要长期保留
+- 例如：临时数据分析、一次性代码生成
+
+**为什么要区分？**
+- 固定agent：保护重要记忆，宽松清理策略
+- 临时subagent：节省空间，激进清理策略
+- 自动识别，无需手动配置
 
 ---
 

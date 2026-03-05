@@ -1,267 +1,98 @@
 # Session Guardian 🛡️
 
-**Enterprise Session Backup & Project Management for [OpenClaw](https://openclaw.ai)**
+企业级对话备份 + 多智能体协作管理解决方案
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/1052326311/session-guardian)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![OpenClaw](https://img.shields.io/badge/OpenClaw-0.9.0+-orange.svg)](https://openclaw.ai)
-[![ClawHub](https://img.shields.io/badge/ClawHub-Install-brightgreen.svg)](https://clawhub.com)
+## 核心价值
 
-> An OpenClaw skill that provides enterprise-grade session backup, recovery, and project management capabilities. Never lose your AI conversations or task states again.
+- 🔒 **对话永不丢失** - 五层防护体系，最多丢失5分钟数据
+- 🤝 **协作可追踪** - 可视化agent间的协作链路
+- 📚 **知识自动沉淀** - 提取最佳实践和常见问题
+- 📊 **健康度监控** - 量化评估协作质量
+- 🎯 **任务可管理** - 复杂任务状态持久化
 
-[中文文档](README_CN.md) | English
+## 适用场景
 
----
+✅ 企业多智能体协作（团队分工）  
+✅ 个人助手团队（多专业助手）  
+✅ 单agent深度使用（长期记忆）  
+✅ 企业多部门协作（信息隔离）
 
-## What is OpenClaw?
-
-[OpenClaw](https://openclaw.ai) is an AI agent framework that enables multi-agent collaboration and automation. Session Guardian is a skill/plugin for OpenClaw that protects your conversations and manages complex tasks.
-
----
-
-## Why Session Guardian?
-
-Are you facing these problems with OpenClaw? Session Guardian solves them:
-
-- 🔴 **Model crashes frequently** → Conversations lost, work wasted
-- 🔴 **Gateway restarts** → Forgot what you were doing, task state lost
-- 🔴 **Cross-channel confusion** → Sent private info to group chat or vice versa
-- 🔴 **Complex tasks hard to track** → Tasks span multiple sessions, state forgotten
-- 🔴 **Multi-agent chaos** → Multiple agents working, don't know who's doing what
-- 🔴 **Session files too large** → Causing timeouts, slow responses, high token costs
-
----
-
-## Quick Start
-
-### Prerequisites
-
-- [OpenClaw](https://openclaw.ai) installed and running
-- [ClawHub CLI](https://clawhub.com) (for installation)
-
-### Installation
+## 快速开始
 
 ```bash
-# Install from ClawHub
+# 安装
 clawhub install session-guardian
 
-# One-click deployment (auto-configure all cron jobs)
+# 一键部署
 cd ~/.openclaw/workspace/skills/session-guardian
 bash scripts/install.sh
 
-# Verify installation
-crontab -l | grep session-guardian
+# 验证
 openclaw cron list
 ```
 
-**That's it!** Your OpenClaw conversations and task states are now protected.
+## v2.0 新功能
 
----
-
-## Core Features
-
-### 1. Never Lose Conversations 📦
+### 1. 协作链路追踪 🔗
+追踪任务在多个agent间的流转过程
 
 ```bash
-# Incremental backup (every 5 minutes) - max 5 minutes data loss
-# Snapshot (every hour) - restore to any point in time
-# Smart summary (daily) - AI extracts key content
-
-# Restore data
-bash scripts/restore.sh --source incremental
-bash scripts/restore.sh --source hourly --timestamp 2026-03-03-14
+bash scripts/collaboration-tracker.sh trace "任务名"
+bash scripts/collaboration-tracker.sh graph "任务名"
 ```
 
-**Zero token cost, runs independently, doesn't affect main conversations**
+### 2. 智能备份策略 📦
+自动区分固定agent（5MB限制）和临时subagent（1MB限制）
 
----
+- 固定agent：保护长期记忆，保留90天
+- 临时subagent：节省空间，保留7天
 
-### 2. Persistent Task State 📋
+### 3. 知识库沉淀 📚
+自动提取最佳实践（✅标记）和常见问题（❌标记）
 
 ```bash
-# Create task plan
-bash scripts/plan-manager.sh create "Develop new feature"
-
-# Update progress
-bash scripts/plan-manager.sh update "Develop new feature" "1.1"
-
-# List all tasks
-bash scripts/plan-manager.sh list
-
-# Archive completed tasks
-bash scripts/plan-manager.sh archive "Develop new feature"
+bash scripts/knowledge-extractor.sh extract dev-lead
+bash scripts/knowledge-extractor.sh extract-all
 ```
 
-**Auto-creates plan files, updates progress in real-time, trackable across sessions**
-
----
-
-### 3. Prevent Cross-Channel Leaks 🔒
+### 4. 协作健康度 📊
+量化评估协作质量（0-100分）
 
 ```bash
-# Check session isolation status
-bash scripts/session-isolation-check.sh check
-
-# Generate detailed report
-bash scripts/session-isolation-check.sh report
+bash scripts/collaboration-health.sh report
 ```
 
-**Enforces channel and user checks, prevents private info leaking to group chats**
+## 五层防护体系
 
----
+| 层级 | 频率 | 功能 | Token成本 |
+|------|------|------|-----------|
+| 增量备份 | 每5分钟 | 最多丢失5分钟数据 | 0 |
+| 快照 | 每小时 | 可恢复到任意时刻 | 0 |
+| 智能总结 | 每日 | AI提取关键内容 | ~1000 |
+| 健康检查 | 每6小时 | 自动清理过大session | 0 |
+| 项目管理 | 按需 | 复杂任务状态追踪 | 0 |
 
-### 4. Auto-Recover from Gateway Restart 🔄
+## 核心优势
 
-```bash
-# Health check (runs every 6 hours automatically)
-bash scripts/health-check.sh
-```
+- ✅ **零Token成本** - 备份和快照不调用LLM
+- ✅ **不影响主对话** - 完全独立运行
+- ✅ **自动清理** - 智能管理磁盘空间
+- ✅ **一键恢复** - 快速回滚到任意时刻
+- ✅ **完全向后兼容** - v1.0用户无缝升级
 
-**Auto-detects restarts, recovers all unfinished tasks, proactively reports**
+## 文档
 
----
+完整文档请查看 [SKILL.md](./SKILL.md)
 
-### 5. Auto-Maintain Health 🏥
+## 版本
 
-**Auto-cleans >1MB session files, fixes missing configs, monitors disk space**
+- v2.0.0 (2026-03-05) - 多智能体协作管理
+- v1.0.0 (2026-03-02) - 基础备份功能
 
----
+## 作者
 
-## Five-Layer Protection
+赛博阿昕 (Cyber Axin)
 
-| Layer | Frequency | Function | Token Cost |
-|-------|-----------|----------|------------|
-| Incremental Backup | Every 5 min | Max 5 min data loss | 0 |
-| Snapshot | Every hour | Restore to any time | 0 |
-| Smart Summary | Daily | AI extracts key content | Minimal |
-| Health Check | Every 6 hours | Clean, fix, monitor | 0 |
-| Project Management | Real-time | Task tracking, session isolation | 0 |
+## 许可
 
----
-
-## Real-World Example
-
-### Multi-Agent Collaboration Project
-
-```bash
-# 1. Create project plan
-bash scripts/plan-manager.sh create "Smart Inspection Product v1.0"
-
-# 2. Assign tasks to different agents
-# - Security AI Product Corps: Process design
-# - Dev Corps UI Designer: Interface design
-# - Dev Corps Full-stack: Code implementation
-
-# 3. Update progress after each agent completes tasks
-bash scripts/plan-manager.sh update "Smart Inspection Product v1.0" "1.1"
-
-# 4. Regularly check session isolation
-bash scripts/session-isolation-check.sh check
-
-# 5. Archive after project completion
-bash scripts/plan-manager.sh archive "Smart Inspection Product v1.0"
-```
-
----
-
-## Core Advantages
-
-- ✅ **Zero Token Cost** - Backup and snapshots don't call LLM
-- ✅ **No Impact on Main Conversations** - Uses system crontab, runs independently
-- ✅ **Auto-Cleanup** - Intelligently manages disk space
-- ✅ **One-Click Restore** - Quickly rollback to any point in time
-- ✅ **Complete Documentation** - Examples, real cases, troubleshooting
-
----
-
-## Use Cases
-
-| Scenario | Pain Point | Solution |
-|----------|------------|----------|
-| Multi-agent collaboration | Hard to track task state | Plan file mechanism |
-| Multi-channel operations | Cross-channel confusion | Session isolation check |
-| Long-term projects | Data loss risk | Five-layer protection |
-| Unstable models | Frequent crashes | Incremental backup + snapshot |
-| Gateway restarts | Task state lost | Auto-recovery mechanism |
-
----
-
-## Documentation
-
-- [Complete Documentation](SKILL.md) - Detailed features and configuration
-- [Usage Examples](EXAMPLES.md) - Real cases and FAQs
-- [Release Notes](RELEASE-v1.0.md) - Complete feature details
-- [中文文档](README_CN.md) - Chinese documentation
-
----
-
-## Requirements
-
-- OpenClaw >= 0.9.0
-- macOS, Linux, or Windows (WSL)
-- Bash shell
-- Cron (for scheduled tasks)
-
----
-
-## Changelog
-
-### v1.0.0 (2026-03-03)
-- ✨ Five-layer protection system
-- ✨ Plan file mechanism
-- ✨ Session isolation check
-- ✨ GatewayRestart forced recovery
-- 🔧 Health check and auto-repair
-- 📝 Complete documentation
-- 🌍 Bilingual support (EN/CN)
-
-[View Complete Changelog](RELEASE-v1.0.md)
-
----
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
----
-
-## Author
-
-**Cyber Axin (赛博阿昕)** 🦞
-- Founder of Lobster Studio
-- King (Lobster King) - Master AI Agent, orchestrating five intelligent agent corps
-
-Built from real-world experience with Lobster Studio's multi-agent collaboration on OpenClaw.
-
----
-
-## 📞 Contact
-
-- **Email**: zhuangxin@szbit.cn
-- **WeChat**: sixsixsix_666-
-- **GitHub**: https://github.com/1052326311/session-guardian
-
----
-
-## Related Links
-
-- [OpenClaw Official Site](https://openclaw.ai)
-- [OpenClaw Documentation](https://docs.openclaw.ai)
-- [ClawHub - Skill Marketplace](https://clawhub.com)
-- [OpenClaw GitHub](https://github.com/openclaw/openclaw)
-
----
-
-## License
-
-MIT License - See [LICENSE](LICENSE) file for details
-
----
-
-## Keywords
-
-`openclaw` `openclaw-skill` `session-backup` `project-management` `multi-agent` `ai-agent` `conversation-backup` `task-management` `data-protection` `automation`
-
----
-
-**Session Guardian v1.0** - Never lose your OpenClaw conversations, never mix up task states 🛡️
+MIT License
