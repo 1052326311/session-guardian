@@ -26,6 +26,13 @@ echo "   Skill 目录: $SKILL_DIR"
 echo "   Workspace: $WORKSPACE_DIR"
 echo ""
 
+# 自动检测已安装的skills并优化配置
+echo "🔍 检测已安装的skills..."
+if [ -f "$SKILL_DIR/scripts/detect-skills.sh" ]; then
+    bash "$SKILL_DIR/scripts/detect-skills.sh"
+    echo ""
+fi
+
 # 加载配置
 source "$SKILL_DIR/scripts/config.sh"
 

@@ -101,6 +101,43 @@ openclaw cron list
 
 ## Core Features
 
+### 0. Smart Skill Detection & Auto-Configuration 🆕
+
+**Automatically detects installed skills and avoids feature overlap**
+
+Session Guardian intelligently adapts to your existing skill ecosystem:
+
+- **Auto-Detection**: Scans installed skills during installation
+- **Feature Mapping**: Identifies overlapping features
+- **Smart Configuration**: Automatically disables redundant features
+- **Token Optimization**: Prevents duplicate processing
+
+**Supported Skills**:
+- `self-improving-agent`: Error logging, learning records, user corrections
+- `proactive-agent`: Autonomous tasks, proactive suggestions
+- `memory-agent`: Knowledge extraction, memory management
+- `backup-agent`: Session backup, snapshot backup
+- `health-monitor`: Health check, performance monitoring
+
+**How It Works**:
+1. During installation, Session Guardian scans `~/.openclaw/workspace/skills/`
+2. Detects installed skills and their features
+3. Automatically disables overlapping features in Session Guardian
+4. Generates a detection report with recommendations
+5. Optimizes token consumption by avoiding duplication
+
+**Example**: If `self-improving-agent` is installed:
+- Session Guardian disables: error logging, learning records, user corrections
+- Session Guardian keeps: session backup, collaboration tracking, health check
+- Session Guardian reads SI's records during daily summary
+- **Result**: Save 65% tokens (from ~30k to ~10.5k tokens/day)
+
+**Manual Re-Detection**:
+```bash
+cd ~/.openclaw/workspace/skills/session-guardian
+bash scripts/detect-skills.sh
+```
+
 ### 1. Five-Layer Protection System
 
 #### Layer 1: Incremental Backup (Every 5 minutes)
