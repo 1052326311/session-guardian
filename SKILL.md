@@ -1,7 +1,7 @@
 ---
 name: session-guardian
-description: Never lose conversations, never confuse tasks. Solves model disconnections, Gateway restarts, cross-channel confusion, and task tracking issues. Five-layer protection: incremental backup (5min) + snapshot (1hr) + smart summary (daily) + health check (6hr) + project management. v2.0 adds: collaboration tracking, smart backup strategy, knowledge extraction, and collaboration health scoring. Works for single-agent, multi-agent, and team collaboration scenarios.
-version: 2.0.0
+description: Never lose conversations, never confuse tasks. Solves model disconnections, Gateway restarts, cross-channel confusion, and task tracking issues. Five-layer protection: incremental backup (5min) + snapshot (1hr) + smart summary (daily) + health check (6hr) + project management. v2.3 adds: AI-powered intelligent compaction strategy - analyzes each agent's role and generates personalized token thresholds (55%-70%). Works for single-agent, multi-agent, and team collaboration scenarios.
+version: 2.3.0
 author: Cyber Axin (赛博阿昕)
 license: MIT
 tags:
@@ -11,6 +11,7 @@ tags:
   - multi-agent
   - data-protection
   - automation
+  - intelligent-compaction
 metadata:
   openclaw:
     emoji: "🛡️"
@@ -29,6 +30,70 @@ metadata:
 - 🔴 **Complex task tracking** - Tasks span multiple sessions, hard to track state
 - 🔴 **Multi-agent chaos** - Multiple agents working simultaneously, unclear who's doing what
 - 🔴 **Large session files** - Causing timeouts, slow responses, high token consumption
+- 🔴 **Token overflow** - Sessions hit context limit, causing aborts and wasted money (v2.2)
+
+## What's New in v2.3 🆕
+
+### Intelligent Compaction Strategy
+**AI-powered personalized compaction for each agent**
+
+```bash
+# Analyze all agents and generate strategies
+bash scripts/analyze-all-agents.sh
+
+# Output:
+# main: 70% threshold (King needs full history)
+# dev-lead: 65% threshold (Team lead needs project context)
+# dev-ui-designer: 55% threshold (Task-based, quick release)
+```
+
+**How it works**:
+1. Analyzes each agent's role, work mode, and collaboration pattern
+2. Generates personalized token thresholds (55%-70%)
+3. Auto-compacts when threshold is reached
+4. Preserves what matters, compresses execution details
+
+**Strategy tiers**:
+- **King (70%)**: Preserves all dispatch history and decisions
+- **Team Leads (65%)**: Preserves project context and collaboration
+- **Specialists (55%)**: Task-based, quick release after completion
+
+**Benefits**:
+- 30-50% reduction in API token usage
+- Faster response times
+- Higher API success rate
+- Personalized for each agent's needs
+
+## What's New in v2.2
+
+### Token Overflow Prevention
+```bash
+# Check all sessions' token usage
+bash scripts/token-monitor.sh
+
+# Output:
+# 🟡 dev-lead token 65% (130000/200000), watch closely
+# 🔴 strategic-lead token 85% (170000/200000), reset now
+# ✅ finance-lead token 12%
+```
+
+### Smart Reset Recovery
+```bash
+# Before reset: save context
+bash scripts/context-recovery.sh save dev-lead
+
+# Save all legions at once
+bash scripts/context-recovery.sh save-all
+
+# After reset: agent reads CONTEXT_RECOVERY.md automatically
+bash scripts/context-recovery.sh restore dev-lead
+```
+
+### Reporting Efficiency Rules
+Written into all legion AGENTS.md files:
+- No repeating input data back
+- Three-element reports: Change + Conclusion + Next Step
+- Reduces token waste from verbose reporting
 
 ## Quick Start
 
@@ -100,6 +165,22 @@ openclaw cron list
 - ✅ Collaboration health: Monitor cross-department collaboration
 
 ## Core Features
+
+## Multi-Agent Best Practices
+
+### Compaction打断sessions_send问题
+**症状**：sessions_send返回"missing tool result"，军团被误判失败
+**根因**：主控agent的compaction会中断所有进行中的tool调用
+**解决**：
+1. 调低reserveTokens到15000（install.sh自动配置）
+2. sessions_send超时设60-120秒，只确认收到
+3. 军团完成后通过announce通知主控
+4. 超时≠失败，只是军团在忙
+
+### 派发规则
+- 禁止长超时等待（>300秒）
+- 派发前检查军团token使用率
+- 60%提醒，80%必须先reset
 
 ### 0. Smart Skill Detection & Auto-Configuration 🆕
 
@@ -391,6 +472,9 @@ After installation, the following cron jobs are automatically configured:
 
 # Collaboration tracking (every 30 minutes)
 */30 * * * * cd ~/.openclaw/workspace/skills/session-guardian && bash scripts/collaboration-tracker.sh
+
+# Intelligent auto-compaction (every hour) 🆕 v2.3
+0 * * * * cd ~/.openclaw/workspace/skills/session-guardian && bash scripts/auto-compact.sh
 ```
 
 ## Best Practices

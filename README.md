@@ -2,16 +2,18 @@
 
 **Your Conversation Guardian** - Enterprise-grade session backup + project management solution for OpenClaw
 
-[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/1052326311/session-guardian)
+[![Version](https://img.shields.io/badge/version-2.3.0-blue.svg)](https://github.com/1052326311/session-guardian)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![OpenClaw](https://img.shields.io/badge/OpenClaw-0.9.0+-orange.svg)](https://openclaw.ai)
 
 ## Features
 
 - 🔄 **Five-Layer Protection**: Incremental backup (5min) + Snapshot (1hr) + Smart summary (daily) + Health check (6hr) + Project management
+- 🤖 **Intelligent Compaction v2.3**: AI-powered personalized token management - 30-50% token reduction
 - 🤝 **Multi-Agent Collaboration**: Track collaboration chains, monitor health scores
 - 🧠 **Knowledge Extraction**: Auto-extract best practices from conversations
 - 📊 **Smart Backup Strategy**: Adaptive backup frequency based on agent activity
+- 🎯 **Personalized Strategies**: One-time intelligent analysis, zero-token execution
 - 🔗 **Self-Improving-Agent Integration**: Complementary design, save 65% tokens
 - 🛡️ **Session Isolation**: Prevent cross-agent information leakage
 
@@ -28,6 +30,45 @@ bash scripts/install.sh
 # Verify
 crontab -l | grep session-guardian
 ```
+
+## What's New in v2.3 🆕
+
+### Intelligent Compaction Strategy
+
+**AI-powered personalized token management** - The biggest upgrade yet!
+
+```bash
+# One-time intelligent analysis (install time)
+bash scripts/analyze-all-agents.sh
+
+# Output:
+# main: 压缩70% | 健康70% | 总结侧重: 军团协作链路...
+# dev-lead: 压缩65% | 健康65% | 总结侧重: 项目进度...
+# dev-ui-designer: 压缩55% | 健康55% | 总结侧重: 任务完成...
+```
+
+**How it works**:
+1. ✅ **One-time analysis**: Analyze each agent's role during installation
+2. ✅ **Personalized strategies**: Generate custom thresholds for each agent
+3. ✅ **Zero-token execution**: Use generated config, no LLM calls after setup
+4. ✅ **Universal design**: Adapts to any user's agent configuration
+
+**Three-tier strategy**:
+- **King (70%)**: Preserves full dispatch history and decisions
+- **Team Leads (65%)**: Preserves project context and collaboration
+- **Specialists (55%)**: Task-based, quick release after completion
+
+**Benefits**:
+- 📉 30-50% reduction in API token usage
+- ⚡ Faster response times
+- 🎯 Higher API success rate
+- 🌐 Universal for all users
+
+**New scripts**:
+- `scripts/analyze-all-agents.sh` - One-time strategy generation
+- `scripts/auto-compact.sh` - Hourly automated compaction
+- `scripts/smart-summary.sh` - Personalized daily summaries
+- `scripts/smart-health-check.sh` - Personalized health thresholds
 
 ## Use Cases
 

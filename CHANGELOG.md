@@ -5,6 +5,32 @@ All notable changes to Session Guardian will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.1] - 2026-03-08
+
+### Added
+- install.sh: reserveTokens自动检测，建议从50000调低到15000减少compaction频率
+- SKILL.md: Multi-Agent Best Practices章节（compaction打断问题、派发规则）
+- token-monitor.sh: 输出末尾增加reserveTokens配置检测和建议
+
+### Fixed
+- 定位sessions_send频繁中断根因：compaction打断长超时tool调用
+
+## [2.2.0] - 2026-03-08
+
+### Added
+- Token预警监控 (`scripts/token-monitor.sh`): 60%黄色预警, 80%红色预警
+- 智能Reset恢复 (`scripts/context-recovery.sh`): reset前自动保存上下文摘要
+- 汇报精简规则: 写入所有军团AGENTS.md，减少token浪费
+- config.json新增 `tokenMonitor` 和 `contextRecovery` 配置项
+- config.sh新增 v2.2 Token预警配置区
+
+### Changed
+- SKILL.md 更新至 v2.2.0，新增 "What's New in v2.2" 章节
+
+### Fixed
+- 解决session overflow导致的军团abort/卡住问题（根因：无预警机制）
+- 解决reset后需要手动传递大量上下文的问题（根因：无恢复机制）
+
 ## [1.0.0] - 2026-03-03
 
 ### Added

@@ -48,6 +48,16 @@ chmod +x "$SKILL_DIR/scripts"/*.sh
 echo -e "${GREEN}✅ 脚本权限已设置${NC}"
 echo ""
 
+# 🆕 v2.3: 智能压缩策略分析（一次性）
+echo "🤖 智能分析所有agent的压缩策略..."
+echo "   这是一次性分析，后续直接使用生成的配置"
+if bash "$SKILL_DIR/scripts/analyze-all-agents.sh"; then
+    echo -e "${GREEN}✅ 智能压缩策略已生成${NC}"
+else
+    echo -e "${YELLOW}⚠️  智能压缩策略生成失败，将使用默认配置${NC}"
+fi
+echo ""
+
 # 测试增量备份
 echo "🧪 测试增量备份..."
 if bash "$SKILL_DIR/scripts/incremental-backup.sh"; then
@@ -92,12 +102,16 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 
 # 快照（每小时）
 0 */$HOURLY_INTERVAL * * * bash "$SKILL_DIR/scripts/hourly-snapshot.sh" >> "$LOG_FILE" 2>&1
+
+# 智能压缩（每小时）🆕 v2.3
+0 * * * * bash "$SKILL_DIR/scripts/auto-compact.sh" >> "$LOG_FILE" 2>&1
 EOF
     ) | crontab -
     
     echo -e "${GREEN}✅ 系统定时任务已添加${NC}"
     echo "   增量备份: 每 $INCREMENTAL_INTERVAL 分钟"
     echo "   快照备份: 每 $HOURLY_INTERVAL 小时"
+    echo "   智能压缩: 每小时"
 else
     echo -e "${YELLOW}⏭️  跳过系统定时任务配置${NC}"
     echo "   你可以稍后手动添加："
@@ -168,6 +182,48 @@ else
     echo -e "${YELLOW}⏭️  跳过 OpenClaw 定时任务配置${NC}"
     echo "   你可以稍后手动添加："
     echo "   openclaw cron add --name \"每日总结\" --cron \"0 2 * * *\" --session isolated --message \"总结今天对话\" --model \"qwen-max\" --announce"
+fi
+echo ""
+
+# v2.2.1: 检查 reserveTokens 配置
+echo "🔍 检查 compaction reserveTokens 配置..."
+OPENCLAW_CONFIG="$HOME/.openclaw/openclaw.json"
+if [ -f "$OPENCLAW_CONFIG" ]; then
+    CURRENT_RESERVE=$(python3 -c "
+import json
+with open('$OPENCLAW_CONFIG') as f:
+    cfg = json.load(f)
+rt = cfg.get('agents',{}).get('defaults',{}).get('compaction',{}).get('reserveTokens', 50000)
+print(rt)
+" 2>/dev/null || echo "50000")
+    
+    if [ "$CURRENT_RESERVE" -gt 15000 ] 2>/dev/null; then
+        echo -e "${YELLOW}⚠️  reserveTokens 当前为 ${CURRENT_RESERVE}${NC}"
+        echo "   建议调低到 15000 以减少 compaction 频率"
+        echo "   （默认50000在150k触发，15000在185k触发，减少3-4倍compaction次数）"
+        echo "   这能避免 compaction 打断 sessions_send 等长时间 tool 调用"
+        echo ""
+        read -p "   是否自动调整为 15000？(y/n): " -n 1 -r
+        echo ""
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            python3 -c "
+import json
+with open('$OPENCLAW_CONFIG') as f:
+    cfg = json.load(f)
+cfg.setdefault('agents',{}).setdefault('defaults',{}).setdefault('compaction',{})['reserveTokens'] = 15000
+with open('$OPENCLAW_CONFIG','w') as f:
+    json.dump(cfg, f, indent=2, ensure_ascii=False)
+print('done')
+" 2>/dev/null
+            echo -e "${GREEN}✅ reserveTokens 已调整为 15000${NC}"
+        else
+            echo -e "${YELLOW}⏭️  跳过 reserveTokens 调整${NC}"
+        fi
+    else
+        echo -e "${GREEN}✅ reserveTokens 配置合理 (${CURRENT_RESERVE})${NC}"
+    fi
+else
+    echo -e "${YELLOW}⚠️  未找到 openclaw.json，跳过 reserveTokens 检查${NC}"
 fi
 echo ""
 

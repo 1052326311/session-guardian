@@ -217,6 +217,29 @@ COLLABORATION_HEALTH_CHECK_ENABLED=true
 COLLABORATION_HEALTH_THRESHOLD=70  # 低于70分告警
 
 # ============================================
+# v2.2 Token预警配置
+# ============================================
+
+# Token上限（默认200k）
+TOKEN_LIMIT=200000
+
+# 黄色预警阈值（百分比）
+TOKEN_WARN_THRESHOLD=60
+
+# 红色预警阈值（百分比）
+TOKEN_CRIT_THRESHOLD=80
+
+# 是否在heartbeat中检查token
+TOKEN_CHECK_IN_HEARTBEAT=true
+
+# 是否在daily summary中检查token
+TOKEN_CHECK_IN_DAILY=true
+
+# Context Recovery
+CONTEXT_RECOVERY_ENABLED=true
+CONTEXT_RECOVERY_AUTO_SAVE=true
+
+# ============================================
 # 内部变量（不要修改）
 # ============================================
 
