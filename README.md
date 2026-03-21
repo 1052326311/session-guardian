@@ -1,372 +1,297 @@
-# Session Guardian 🛡️
+<div align="center">
 
-**Your Conversation Guardian** - Enterprise-grade session backup + project management solution for OpenClaw
+# 🛡️ Session Guardian
 
-[![Version](https://img.shields.io/badge/version-2.3.0-blue.svg)](https://github.com/1052326311/session-guardian)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![OpenClaw](https://img.shields.io/badge/OpenClaw-0.9.0+-orange.svg)](https://openclaw.ai)
+**Never lose a conversation again.**
 
-## Features
+Auto-backup, smart recovery, and health monitoring for OpenClaw sessions.
 
-- 🔄 **Five-Layer Protection**: Incremental backup (5min) + Snapshot (1hr) + Smart summary (daily) + Health check (6hr) + Project management
-- 🤖 **Intelligent Compaction v2.3**: AI-powered personalized token management - 30-50% token reduction
-- 🤝 **Multi-Agent Collaboration**: Track collaboration chains, monitor health scores
-- 🧠 **Knowledge Extraction**: Auto-extract best practices from conversations
-- 📊 **Smart Backup Strategy**: Adaptive backup frequency based on agent activity
-- 🎯 **Personalized Strategies**: One-time intelligent analysis, zero-token execution
-- 🔗 **Self-Improving-Agent Integration**: Complementary design, save 65% tokens
-- 🛡️ **Session Isolation**: Prevent cross-agent information leakage
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![OpenClaw Skill](https://img.shields.io/badge/OpenClaw-Skill-blue.svg)](https://github.com/openclaw/openclaw)
+[![ClawHub](https://img.shields.io/badge/ClawHub-session--guardian-orange.svg)](https://clawhub.ai/1052326311/session-guardian)
+[![GitHub stars](https://img.shields.io/github/stars/1052326311/session-guardian?style=social)](https://github.com/1052326311/session-guardian)
 
-## Quick Start
+*5-min auto-backup · One-command recovery · Token overflow protection · Multi-agent support*
+
+[Quick Start](#-quick-start) · [The Problem](#-the-problem) · [How It Works](#-how-it-works) · [中文说明](#-中文说明)
+
+</div>
+
+---
+
+## 😤 The Problem
+
+```
+You: (spent 2 hours working with your agent on a complex task)
+Gateway: *restarts*
+You: Hey, remember what we were working on?
+Agent: I have no memory of our previous conversation. How can I help you?
+You: ...
+```
+
+Your OpenClaw conversations live in session files. When things go wrong — and they **will** — you lose everything:
+
+- 🔴 **Gateway restart** → entire conversation history gone
+- 🔴 **Model disconnection** → mid-task context wiped out
+- 🔴 **Token overflow** → session too large, agent crashes
+- 🔴 **Disk issues** → session files corrupted
+
+No built-in backup. No recovery. No warning before it's too late.
+
+## ✅ The Fix
+
+```
+  Without Guardian                    With Guardian
+┌──────────────────┐            ┌──────────────────────────┐
+│ Gateway crashes  │            │  Auto-backup every 5 min │
+│ → conversation   │            │  Hourly snapshots        │
+│   gone forever   │            │  Health monitoring       │
+│                  │            │  One-command recovery    │
+│ Token overflow   │            │                          │
+│ → agent frozen   │            │  Gateway crash?          │
+│                  │            │  → Restore in seconds    │
+│ No way back. 😱  │            │                          │
+└──────────────────┘            │  Token overflow?         │
+                                │  → Auto-detected + alert │
+                                │                          │
+                                │  Always protected. 🛡️    │
+                                └──────────────────────────┘
+```
+
+## 🚀 Quick Start
+
+### 30 seconds
 
 ```bash
-# Install via ClawHub
+# Install from ClawHub
 clawhub install session-guardian
 
-# One-click deployment
+# Deploy (auto-configures all cron jobs)
 cd ~/.openclaw/workspace/skills/session-guardian
 bash scripts/install.sh
 
-# Verify
-crontab -l | grep session-guardian
+# Verify it's running
+bash scripts/status.sh
 ```
 
-## What's New in v2.3 🆕
-
-### Intelligent Compaction Strategy
-
-**AI-powered personalized token management** - The biggest upgrade yet!
+### Or clone from GitHub
 
 ```bash
-# One-time intelligent analysis (install time)
-bash scripts/analyze-all-agents.sh
-
-# Output:
-# main: 压缩70% | 健康70% | 总结侧重: 军团协作链路...
-# dev-lead: 压缩65% | 健康65% | 总结侧重: 项目进度...
-# dev-ui-designer: 压缩55% | 健康55% | 总结侧重: 任务完成...
-```
-
-**How it works**:
-1. ✅ **One-time analysis**: Analyze each agent's role during installation
-2. ✅ **Personalized strategies**: Generate custom thresholds for each agent
-3. ✅ **Zero-token execution**: Use generated config, no LLM calls after setup
-4. ✅ **Universal design**: Adapts to any user's agent configuration
-
-**Three-tier strategy**:
-- **King (70%)**: Preserves full dispatch history and decisions
-- **Team Leads (65%)**: Preserves project context and collaboration
-- **Specialists (55%)**: Task-based, quick release after completion
-
-**Benefits**:
-- 📉 30-50% reduction in API token usage
-- ⚡ Faster response times
-- 🎯 Higher API success rate
-- 🌐 Universal for all users
-
-**New scripts**:
-- `scripts/analyze-all-agents.sh` - One-time strategy generation
-- `scripts/auto-compact.sh` - Hourly automated compaction
-- `scripts/smart-summary.sh` - Personalized daily summaries
-- `scripts/smart-health-check.sh` - Personalized health thresholds
-
-## Use Cases
-
-### 1. Enterprise Multi-Agent Collaboration
-Multiple agents working together (Main → Team Lead → Members)
-
-### 2. Personal Assistant Team
-Multiple specialized assistants (Research, Coding, Writing, Translation)
-
-### 3. Single-Agent Deep Usage
-One main agent handling all tasks with long-term memory
-
-### 4. Enterprise Multi-Department
-Different departments with separate agents (Sales, Support, Tech, Finance)
-
-## Core Features
-
-### Five-Layer Protection System
-
-1. **Incremental Backup** (Every 5 minutes)
-   - Auto-backup new conversations
-   - Minimal storage, fast recovery
-
-2. **Snapshot Backup** (Every 1 hour)
-   - Complete session snapshots
-   - Version control, rollback support
-
-3. **Smart Summary** (Daily)
-   - Extract key information
-   - Auto-update MEMORY.md
-
-4. **Health Check** (Every 6 hours)
-   - Monitor session file size
-   - Detect abnormal token consumption
-
-5. **Project Management**
-   - Task state tracking
-   - Milestone management
-
-### Multi-Agent Collaboration (v2.0)
-
-- **Collaboration Tracking**: Visualize task flow
-- **Smart Backup Strategy**: Adaptive backup frequency
-- **Knowledge Extraction**: Auto-update AGENTS.md
-- **Health Scoring**: Monitor collaboration quality
-
-### Integration with Self-Improving-Agent
-
-**Complementary Design**:
-- Session Guardian: Macro perspective (overall progress)
-- Self-Improving-Agent: Micro perspective (specific issues)
-
-**Token Savings**:
-- Before: ~30k tokens/day
-- After: ~10.5k tokens/day
-- **Save 65% tokens**
-
-## Installation
-
-### Method 1: ClawHub (Recommended)
-
-```bash
-clawhub install session-guardian
-```
-
-### Method 2: Manual
-
-```bash
-git clone https://github.com/1052326311/session-guardian.git ~/.openclaw/workspace/skills/session-guardian
+git clone https://github.com/1052326311/session-guardian.git \
+  ~/.openclaw/workspace/skills/session-guardian
 cd ~/.openclaw/workspace/skills/session-guardian
 bash scripts/install.sh
 ```
 
-## Configuration
+## 🏗️ How It Works
 
-Edit `config.json`:
+Five layers of automatic protection:
 
-```json
-{
-  "backup": {
-    "incremental": {
-      "enabled": true,
-      "interval": 5,
-      "retention": 7
-    },
-    "snapshot": {
-      "enabled": true,
-      "interval": 60,
-      "retention": 30
-    }
-  },
-  "summary": {
-    "enabled": true,
-    "schedule": "0 0 * * *"
-  },
-  "healthCheck": {
-    "enabled": true,
-    "interval": 6
-  },
-  "collaboration": {
-    "tracking": true,
-    "healthScore": true
-  },
-  "integration": {
-    "selfImprovingAgent": {
-      "enabled": true,
-      "readLearnings": true
-    }
-  }
-}
-```
+| Layer | Schedule | What It Does |
+|-------|----------|-------------|
+| 📦 Incremental Backup | Every 5 min | Saves new conversations. Max 5 min of data loss. |
+| 📸 Hourly Snapshot | Every hour | Full session archive. Point-in-time recovery. |
+| 🏥 Health Check | Every 6 hours | Detects oversized sessions, disk issues, token overflow. |
+| 📝 Smart Summary | Daily 2am | Extracts key info from conversations to MEMORY.md. |
+| 🧠 Knowledge Extraction | Daily | Auto-saves best practices from all agents. |
 
-## Usage
+All automatic. All in the background. Zero manual work after install.
 
-### Manual Backup
+## 📊 What You Get
+
+| Feature | Solo Agent | Multi-Agent Team |
+|---------|:---------:|:---------------:|
+| Auto-backup (5 min) | ✅ | ✅ |
+| Hourly snapshots | ✅ | ✅ |
+| One-command recovery | ✅ | ✅ |
+| Token overflow alerts | ✅ | ✅ |
+| Collaboration tracking | — | ✅ |
+| Knowledge extraction | ✅ | ✅ |
+| Health scoring | — | ✅ |
+| Task flow visualization | — | ✅ |
+
+## 🔧 Usage
+
+### Check Status
 
 ```bash
-# Backup all sessions
-openclaw skill run session-guardian backup
-
-# Backup specific agent
-openclaw skill run session-guardian backup --agent main
+bash scripts/status.sh
 ```
 
-### Manual Summary
-
-```bash
-# Generate daily summary
-openclaw skill run session-guardian summary
-
-# Generate weekly summary
-openclaw skill run session-guardian summary --weekly
-```
+Shows backup count, last backup time, cron jobs, disk usage, and overall health.
 
 ### Health Check
 
 ```bash
-# Run health check
-openclaw skill run session-guardian health-check
-
-# View report
-cat ~/.openclaw/workspace/Assets/SessionBackups/health-reports/latest.md
+bash scripts/health-check.sh
 ```
 
-### Restore Session
+Detects: oversized sessions, missing configs, disk space issues, gateway problems.
+
+### Restore a Session
 
 ```bash
-# List backups
-openclaw skill run session-guardian list-backups
+# List available backups
+bash scripts/restore.sh list
 
-# Restore
-openclaw skill run session-guardian restore --backup 2026-03-06-10-00
+# Restore specific agent from latest backup
+bash scripts/restore.sh restore --agent main
+
+# Dry run (see what would happen)
+bash scripts/restore.sh --dry-run
 ```
 
-## Performance
-
-### Token Consumption
-- Incremental backup: ~100 tokens/run
-- Snapshot backup: ~500 tokens/run
-- Daily summary: ~8k tokens/run (with SI integration)
-- Health check: ~200 tokens/run
-- **Total**: ~10-15k tokens/day
-
-### Storage
-- ~1-2MB/agent/month
-
-## Cron Jobs
-
-Automatically configured after installation:
+### Collaboration (Multi-Agent)
 
 ```bash
-*/5 * * * *   # Incremental backup (every 5 min)
-0 * * * *     # Snapshot backup (every hour)
-0 0 * * *     # Daily summary (midnight)
-0 */6 * * *   # Health check (every 6 hours)
-*/30 * * * *  # Collaboration tracking (every 30 min)
+# View collaboration health
+bash scripts/collaboration-health.sh report
+
+# Track task flow (King → Lead → Members)
+bash scripts/collaboration-tracker.sh trace "task name"
 ```
 
-## Best Practices
+## 📁 Where Backups Go
 
-1. **Regular Monitoring**: Check health reports weekly
-2. **Backup Management**: Keep 7 days incremental, 30 days snapshots
-3. **Knowledge Extraction**: Review daily summaries, update MEMORY.md
-4. **Integration**: Use with self-improving-agent for error learning
+```
+Assets/SessionBackups/
+├── incremental/     # Every-5-min backups (7 days retention)
+├── hourly/          # Hourly snapshots (30 days retention)
+├── collaboration/   # Task flow records
+└── Knowledge/       # Extracted best practices
+```
 
-## Troubleshooting
+All backups stay local. Nothing leaves your machine.
 
-### Backup Not Running
+## ⚡ Performance
+
+| Operation | Tokens | Storage |
+|-----------|--------|---------|
+| Incremental backup | ~100/run | ~10KB/session/day |
+| Hourly snapshot | ~500/run | ~100KB/session/day |
+| Health check | ~200/run | ~2KB/report |
+| Daily summary | ~5k/run | ~5KB/day |
+| **Total** | **~10-15k/day** | **~1-2MB/agent/month** |
+
+## 🔒 Security
+
+- ✅ All data stays local — no external services, no network requests
+- ✅ No API keys required
+- ✅ Read-only access to session files (only copies, never modifies)
+- ✅ Backups excluded from git
+
+## 🛠️ Configuration
+
+Edit `scripts/config.sh`:
+
 ```bash
-crontab -l | grep session-guardian
-tail -f ~/.openclaw/workspace/skills/session-guardian/logs/backup.log
+BACKUP_DIR         # Where backups go (default: Assets/SessionBackups)
+INCREMENTAL_KEEP   # Days to keep incremental (default: 7)
+SNAPSHOT_KEEP      # Days to keep snapshots (default: 30)
+MAX_SESSION_SIZE   # Alert threshold (default: 5MB)
 ```
 
-### Large Session Files
-```bash
-openclaw skill run session-guardian health-check
-cat ~/.openclaw/workspace/Assets/SessionBackups/health-reports/latest.md
-```
+## 🔍 Troubleshooting
 
-## Roadmap
-
-### v2.1 (Planned)
-- [ ] Web dashboard
-- [ ] Real-time monitoring
-- [ ] Advanced analytics
-- [ ] Custom alerts
-
-### v2.2 (Planned)
-- [ ] Cloud backup
-- [ ] Team features
-- [ ] API integration
-- [ ] Mobile app
-
-## Contributing
-
-Contributions welcome! Please:
-1. Fork the repository
-2. Create a feature branch
-3. Submit a pull request
-
-## License
-
-MIT License - see [LICENSE](LICENSE) file
-
-## Support
-
-- **GitHub**: https://github.com/1052326311/session-guardian
-- **Issues**: https://github.com/1052326311/session-guardian/issues
-- **ClawHub**: https://clawhub.com/session-guardian
-
-## Changelog
-
-### v2.0.0 (2026-03-05)
-- ✨ Added collaboration tracking
-- ✨ Added smart backup strategy
-- ✨ Added knowledge extraction
-- ✨ Added collaboration health scoring
-- ✨ Integration with self-improving-agent
-- 🐛 Fixed session isolation issues
-
-### v1.0.0 (2026-03-01)
-- 🎉 Initial release
+| Problem | Fix |
+|---------|-----|
+| Backups not running | `crontab -l \| grep session-guardian` |
+| Agent slow/timing out | Run `health-check.sh` — likely token overflow |
+| Can't restore | `restore.sh list` to see available backups |
+| Disk filling up | Adjust retention in `config.sh` |
 
 ---
 
-# 中文版 / Chinese Version
+# 🇨🇳 中文说明
 
-## 功能特性
+## 再也不丢对话了
 
-- 🔄 **五层防护**：增量备份（5分钟）+ 快照（1小时）+ 智能总结（每日）+ 健康检查（6小时）+ 项目管理
-- 🤝 **多智能体协作**：追踪协作链路，监控健康度评分
-- 🧠 **知识提取**：自动从对话中提取最佳实践
-- 📊 **智能备份策略**：根据agent活跃度自适应备份频率
-- 🔗 **Self-Improving-Agent集成**：互补设计，节省65% tokens
-- 🛡️ **Session隔离**：防止跨agent信息泄露
+你的 OpenClaw 对话存在 session 文件里。Gateway 一重启、模型一断连、token 一溢出——对话就没了。
 
-## 快速开始
+**Session Guardian** 提供五层自动防护：
 
-```bash
-# 通过ClawHub安装
-clawhub install session-guardian
-
-# 一键部署
-cd ~/.openclaw/workspace/skills/session-guardian
-bash scripts/install.sh
-
-# 验证
-crontab -l | grep session-guardian
+```
+第1层：增量备份    → 每 5 分钟  → 保存新对话，最多丢 5 分钟
+第2层：快照备份    → 每小时     → 完整 session 存档，支持回滚
+第3层：健康检查    → 每 6 小时  → 提前发现问题（token 溢出、磁盘不足）
+第4层：智能总结    → 每天       → 提取关键信息到 MEMORY.md
+第5层：知识沉淀    → 每天       → 自动保存最佳实践
 ```
 
-## 使用场景
+### 安装
 
-### 1. 企业多智能体协作
-多个agent分工协作（主控 → 团长 → 成员）
+```bash
+# ClawHub 安装（推荐）
+clawhub install session-guardian
 
-### 2. 个人助手团队
-多个专业助手（研究、编程、写作、翻译）
+# 或 GitHub 安装
+git clone https://github.com/1052326311/session-guardian.git \
+  ~/.openclaw/workspace/skills/session-guardian
 
-### 3. 单agent深度使用
-一个主agent处理所有任务，长期记忆
+# 部署（自动配置所有定时任务）
+cd ~/.openclaw/workspace/skills/session-guardian
+bash scripts/install.sh
+```
 
-### 4. 企业多部门
-不同部门各有agent（销售、客服、技术、财务）
+### 你会得到
 
-## 性能
+- ✅ **自动备份** — 每 5 分钟一次，最多丢 5 分钟对话
+- ✅ **一键恢复** — 从任意备份点恢复 session
+- ✅ **健康监控** — 在 token 溢出前预警
+- ✅ **多 Agent 支持** — 保护所有 Agent，不只是 main
+- ✅ **协作追踪** — 可视化任务流转（King → 团长 → 成员）
+- ✅ **知识沉淀** — 自动从对话中提取最佳实践
+- ✅ **极低开销** — 每天约 10-15k tokens，每月约 1-2MB/Agent
 
-### Token消耗
-- 增量备份：~100 tokens/次
-- 快照备份：~500 tokens/次
-- 每日总结：~8k tokens/次（集成SI后）
-- 健康检查：~200 tokens/次
-- **总计**：~10-15k tokens/天
+### 常用命令
 
-### 存储
-- ~1-2MB/agent/月
+```bash
+bash scripts/status.sh               # 查看状态
+bash scripts/health-check.sh         # 健康检查
+bash scripts/restore.sh list         # 查看备份列表
+bash scripts/restore.sh restore --agent main  # 恢复 session
+bash scripts/collaboration-health.sh report   # 协作健康度
+```
 
-## 支持
+### 适用场景
 
-- **GitHub**: https://github.com/1052326311/session-guardian
-- **Issues**: https://github.com/1052326311/session-guardian/issues
-- **ClawHub**: https://clawhub.com/session-guardian
+| 场景 | 功能 |
+|------|------|
+| **个人用户** | 保护主对话不丢失，token 溢出前预警，秒级恢复 |
+| **多 Agent 团队** | 保护所有 Agent，追踪协作链路，自动沉淀知识 |
+
+### 安全性
+
+- 所有数据本地存储，不联网，不需要 API Key
+- 不修改 session 文件，只读取和复制
+- 备份文件已排除 git 追踪
+
+---
+
+## 📜 Changelog
+
+### v3.1.0 (2026-03-21)
+- 📝 Complete SKILL.md rewrite — concise, bilingual, ClawHub-optimized
+- 🐛 Fixed health-check auto-modifying agent configs (removed hardcoded model)
+- 🎨 New ASCII comparison diagrams
+
+### v2.0.0 (2026-03-05)
+- ✨ Collaboration tracking (King → Lead → Members)
+- ✨ Smart backup strategy per agent
+- ✨ Knowledge extraction
+- ✨ Collaboration health scoring
+
+### v1.0.0 (2026-03-01)
+- 🎉 Initial release — five-layer protection system
+
+## 📄 License
+
+MIT License — see [LICENSE](LICENSE) for details.
+
+## ⭐ Support
+
+If this skill saved your conversations, give it a star! ⭐
+
+```bash
+clawhub star session-guardian    # on ClawHub
+```
